@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AzyTools - Free Password Generator, Calculator & Rocket Launch Tracker</title>
+    <meta name="description" content="Free online tools: Password generator, private calculator, rocket launch tracker. All tools work in your browser, no installation needed.">
+    <meta property="og:title" content="AzyTools Hub - Free Web Tools">
+    <meta property="og:description" content="Password generator, calculator & rocket launch tracker. All tools work in browser.">
+    <meta property="og:image" content="https://azytools.my.id/og-image.jpg">
+    <meta property="og:url" content="https://azytools.my.id">
+    <meta property="og:type" content="website">
+    <meta name="theme-color" content="#7C3AED">
+    <meta name="google-site-verification" content="sbVXTn3tI7vNo3GaV-y3ng6x7AR3bZaebkk8xBVLnYw" />
+    <link rel="canonical" href="https://azytools.my.id/">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22 fill=%22%237C3AED%22>🔧</text></svg>">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Reset & Base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+
+        :root {
+            --primary: #7C3AED;
+            --primary-light: #8B5CF6;
+            --primary-dark: #6D28D9;
+            --secondary: #1E293B;
+            --light: #F8FAFC;
+            --gray: #64748B;
+            --gray-light: #F1F5F9;
+            --success: #10B981;
+            --warning: #F59E0B;
+            --danger: #EF4444;
+            --card-bg: #FFFFFF;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            --shadow-hover: 0 10px 30px rgba(0, 0, 0, 0.12);
+            --radius: 16px;
+            --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body {
+            background: linear-gradient(135deg, #F9FAFB 0%, #F3F4F6 100%);
+            color: var(--secondary);
+            min-height: 100vh;
+            line-height: 1.6;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Typography */
+        h1, h2, h3, h4 {
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        /* Header */
+        header {
+            padding: 48px 0 32px;
+            text-align: center;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .logo-icon {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            width: 56px;
+            height: 56px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 26px;
+            font-weight: 800;
+            box-shadow: var(--shadow);
+        }
+
+        .logo-text {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.5px;
+        }
+
+        .tagline {
+            color: var(--gray);
+            font-size: 1.125rem;
+            max-width: 600px;
+            margin: 0 auto 32px;
+            font-weight: 400;
+        }
+
+        /* Social Buttons */
+        .social-container {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-top: 24px;
+        }
+
+        .social-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--secondary);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: var(--transition);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border: none;
+            cursor: pointer;
+        }
+
+        .social-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            background: var(--primary);
+        }
+
+        .social-btn i {
+            font-size: 1.1rem;
+        }
+
+        /* Main Content */
+        .main-title {
+            text-align: center;
+            font-size: 2.25rem;
+            margin: 24px 0 48px;
+            color: var(--secondary);
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .main-title::after {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--primary-light));
+            border-radius: 2px;
+        }
+
+        /* Tools Grid */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+            gap: 32px;
+            margin-bottom: 60px;
+        }
+
+        /* Tool Card */
+        .tool-card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid rgba(0, 0, 0, 0.03);
+        }
+
+        .tool-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .card-header {
+            padding: 28px 28px 20px;
+            border-bottom: 1px solid var(--gray-light);
+            background: linear-gradient(to bottom, rgba(124, 58, 237, 0.03), transparent);
+        }
+
+        .card-header-inner {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+        }
+
+        .tool-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            color: white;
+            flex-shrink: 0;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .passgen-icon {
+            background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+        }
+
+        .calc-icon {
+            background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+        }
+
+        .launch-icon {
+            background: linear-gradient(135deg, #7C3AED 0%, #6D28D9 100%);
+        }
+
+        .tool-title-wrapper {
+            flex: 1;
+        }
+
+        .tool-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+            color: var(--secondary);
+        }
+
+        .tool-subtitle {
+            color: var(--gray);
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .card-body {
+            padding: 24px 28px;
+            flex-grow: 1;
+        }
+
+        .tool-description {
+            color: var(--secondary);
+            line-height: 1.7;
+            margin-bottom: 24px;
+            font-size: 1rem;
+        }
+
+        .tool-features {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+
+        .tool-features li {
+            padding: 8px 0;
+            color: var(--gray);
+            display: flex;
+            align-items: center;
+            font-size: 0.95rem;
+        }
+
+        .tool-features li i {
+            color: var(--success);
+            margin-right: 12px;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+
+        .card-footer {
+            padding: 0 28px 28px;
+            margin-top: auto;
+        }
+
+        .tool-btn {
+            display: block;
+            width: 100%;
+            text-align: center;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 16px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.05rem;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            letter-spacing: 0.3px;
+            box-shadow: 0 4px 12px rgba(124, 58, 237, 0.25);
+        }
+
+        .tool-btn:hover {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(124, 58, 237, 0.35);
+        }
+
+        /* Disclaimer Sections */
+        .disclaimer-container {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            margin: 60px 0 40px;
+        }
+
+        .disclaimer-card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 28px;
+            box-shadow: var(--shadow);
+            border-left: 4px solid;
+        }
+
+        .disclaimer-card.warning {
+            border-left-color: var(--warning);
+            background: linear-gradient(to right, rgba(245, 158, 11, 0.03), transparent);
+        }
+
+        .disclaimer-card.info {
+            border-left-color: var(--primary);
+            background: linear-gradient(to right, rgba(124, 58, 237, 0.03), transparent);
+        }
+
+        .disclaimer-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--secondary);
+            font-size: 1.4rem;
+            margin-bottom: 16px;
+        }
+
+        .disclaimer-title i {
+            font-size: 1.3rem;
+        }
+
+        .warning .disclaimer-title i {
+            color: var(--warning);
+        }
+
+        .info .disclaimer-title i {
+            color: var(--primary);
+        }
+
+        .disclaimer-text {
+            color: var(--secondary);
+            line-height: 1.7;
+            margin-bottom: 12px;
+            font-size: 1rem;
+        }
+
+        .disclaimer-text:last-child {
+            margin-bottom: 0;
+        }
+
+        .highlight {
+            background: rgba(124, 58, 237, 0.08);
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+            color: var(--primary-dark);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 32px 0;
+            color: var(--gray);
+            font-size: 0.95rem;
+            border-top: 1px solid var(--gray-light);
+            margin-top: 40px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-top: 16px;
+        }
+
+        .footer-links a {
+            color: var(--gray);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .tools-grid {
+                grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+                gap: 28px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 40px 0 28px;
+            }
+            
+            .logo-text {
+                font-size: 2.5rem;
+            }
+            
+            .tagline {
+                font-size: 1.05rem;
+                padding: 0 16px;
+            }
+            
+            .main-title {
+                font-size: 2rem;
+                margin: 20px 0 40px;
+            }
+            
+            .tools-grid {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+            
+            .card-header-inner {
+                gap: 16px;
+            }
+            
+            .tool-icon {
+                width: 56px;
+                height: 56px;
+                font-size: 24px;
+            }
+            
+            .tool-title {
+                font-size: 1.6rem;
+            }
+            
+            .social-container {
+                flex-wrap: wrap;
+            }
+            
+            .disclaimer-container {
+                margin: 48px 0 32px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 20px;
+            }
+            
+            header {
+                padding: 32px 0 24px;
+            }
+            
+            .logo-container {
+                flex-direction: column;
+                gap: 12px;
+            }
+            
+            .logo-text {
+                font-size: 2.2rem;
+            }
+            
+            .social-btn {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+            
+            .card-header,
+            .card-body,
+            .card-footer {
+                padding-left: 24px;
+                padding-right: 24px;
+            }
+            
+            .card-header {
+                padding-top: 24px;
+                padding-bottom: 20px;
+            }
+            
+            .card-footer {
+                padding-bottom: 24px;
+            }
+            
+            .disclaimer-card {
+                padding: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo-container">
+                <div class="logo-icon">A</div>
+                <h1 class="logo-text">AzyTools</h1>
+            </div>
+            <p class="tagline">A curated hub of essential web tools for productivity, security, and space exploration</p>
+            
+            <div class="social-container">
+                <a href="https://x.com/Yuan_SF24983" target="_blank" class="social-btn">
+                    <i class="fab fa-twitter"></i>
+                    Follow Dev on X
+                </a>
+                <a href="https://github.com/yuandevarizqullah12-sketch/AzyTools-Hub" target="_blank" class="social-btn">
+                    <i class="fab fa-github"></i>
+                    View on GitHub
+                </a>
+            </div>
+        </header>
+
+        <main>
+            <h2 class="main-title">Featured Tools</h2>
+            
+            <div class="tools-grid">
+                <!-- PassGen Card -->
+                <div class="tool-card">
+                    <div class="card-header">
+                        <div class="card-header-inner">
+                            <div class="tool-icon passgen-icon">
+                                <i class="fas fa-key"></i>
+                            </div>
+                            <div class="tool-title-wrapper">
+                                <h3 class="tool-title">PassGen</h3>
+                                <p class="tool-subtitle">Secure Password Generator</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <p class="tool-description">Generate strong, secure passwords and passphrases with customizable options. All generation happens locally in your browser for maximum privacy.</p>
+                        <ul class="tool-features">
+                            <li><i class="fas fa-check-circle"></i> Multiple password generation modes</li>
+                            <li><i class="fas fa-check-circle"></i> Password strength indicator</li>
+                            <li><i class="fas fa-check-circle"></i> Local history storage</li>
+                            <li><i class="fas fa-check-circle"></i> No data sent to servers</li>
+                        </ul>
+                    </div>
+                    <div class="card-footer">
+                        <a href="https://passgen-ebfa2.web.app" target="_blank" class="tool-btn">Open PassGen</a>
+                    </div>
+                </div>
+
+                <!-- SmartCalc Card -->
+                <div class="tool-card">
+                    <div class="card-header">
+                        <div class="card-header-inner">
+                            <div class="tool-icon calc-icon">
+                                <i class="fas fa-calculator"></i>
+                            </div>
+                            <div class="tool-title-wrapper">
+                                <h3 class="tool-title">SmartCalc</h3>
+                                <p class="tool-subtitle">Private Calculator</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <p class="tool-description">A clean, privacy-focused calculator that runs entirely in your browser. All calculations are performed locally with no external tracking.</p>
+                        <ul class="tool-features">
+                            <li><i class="fas fa-check-circle"></i> Full calculation history</li>
+                            <li><i class="fas fa-check-circle"></i> 100% private - no data collection</li>
+                            <li><i class="fas fa-check-circle"></i> Fast and responsive</li>
+                            <li><i class="fas fa-check-circle"></i> No external fonts or trackers</li>
+                        </ul>
+                    </div>
+                    <div class="card-footer">
+                        <a href="https://smartcalc-one.vercel.app" target="_blank" class="tool-btn">Open SmartCalc</a>
+                    </div>
+                </div>
+
+                <!-- NextLaunch Card -->
+                <div class="tool-card">
+                    <div class="card-header">
+                        <div class="card-header-inner">
+                            <div class="tool-icon launch-icon">
+                                <i class="fas fa-rocket"></i>
+                            </div>
+                            <div class="tool-title-wrapper">
+                                <h3 class="tool-title">NextLaunch</h3>
+                                <p class="tool-subtitle">Rocket Launch Tracker</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <p class="tool-description">Stay updated with upcoming space launches worldwide. Real-time data from The Space Devs API with countdowns and launch information.</p>
+                        <ul class="tool-features">
+                            <li><i class="fas fa-check-circle"></i> Live countdown timers</li>
+                            <li><i class="fas fa-check-circle"></i> Upcoming launch schedule</li>
+                            <li><i class="fas fa-check-circle"></i> Real-time API data</li>
+                            <li><i class="fas fa-check-circle"></i> Global space missions tracking</li>
+                        </ul>
+                    </div>
+                    <div class="card-footer">
+                        <a href="https://nextlaunch-wine.vercel.app" target="_blank" class="tool-btn">Open NextLaunch</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Disclaimer Sections -->
+            <div class="disclaimer-container">
+                <div class="disclaimer-card warning">
+                    <h3 class="disclaimer-title">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        Important Tool Disclaimers
+                    </h3>
+                    <p class="disclaimer-text">
+                        <strong>PassGen:</strong> Before using any generated password, please save it locally (e.g., Notepad, password manager). We do not store your passwords and are not responsible for any misuse or input errors. By using this tool you agree that you have saved the password and accept all responsibility.
+                    </p>
+                    <p class="disclaimer-text">
+                        <strong>SmartCalc:</strong> All computations run locally in your browser — we do not send your expressions or results to any server. This page intentionally avoids external fonts and trackers to improve performance and privacy.
+                    </p>
+                    <p class="disclaimer-text">
+                        <strong>NextLaunch:</strong> Launch data is sourced from The Space Devs API and is subject to change. Launch schedules may be delayed or rescheduled due to various factors including weather and technical issues.
+                    </p>
+                    <p class="disclaimer-text">
+                        All tools are provided "as-is" without warranty of any kind. Use at your own discretion.
+                    </p>
+                </div>
+                
+                <div class="disclaimer-card info">
+                     <h3 class="disclaimer-title">
+                         <i class="fas fa-robot"></i>
+                         AI-Assisted Development Disclaimer
+                     </h3>
+                     <p class="disclaimer-text">
+                        <span class="highlight">All tools in this hub (PassGen, SmartCalc, NextLaunch) and this hub page itself were created with AI assistance.</span> The code, design, and functionality were generated by artificial intelligence based on developer specifications.
+                     </p>
+                     <p class="disclaimer-text">
+                        <span class="highlight">However, deployment, hosting, maintenance, and ongoing supervision of these tools remain under human control.</span> While AI helped create the codebase, actual implementation, security, updates, and management are handled by human developers.
+                     </p>
+                     <p class="disclaimer-text">
+                        These tools run independently - PassGen and SmartCalc operate locally in your browser, while NextLaunch connects to external space launch APIs. All are provided "as-is" for utility purposes.
+                     </p>
+                     <p class="disclaimer-text">
+                         <i>AI-built, human-supervised.</i>
+                     </p>
+          </div>
+        </main>
+
+        <footer>
+            <p>AzyTools Hub &copy; <span id="current-year">2026</span> | A curated collection of useful web tools</p>
+            <div class="footer-links">
+                <a href="https://passgen-ebfa2.web.app" target="_blank">PassGen</a>
+                <a href="https://smartcalc-one.vercel.app" target="_blank">SmartCalc</a>
+                <a href="https://nextlaunch-wine.vercel.app" target="_blank">NextLaunch</a>
+            </div>
+            <p style="margin-top: 16px; font-size: 0.85rem; color: var(--gray);">
+                UI/UX designed with attention to typography, spacing, and consistency
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        // Initialize with enhanced animations
+        document.addEventListener('DOMContentLoaded', function() {
+            // Update copyright year
+            document.getElementById('current-year').textContent = new Date().getFullYear();
+            
+            // Add smooth entrance animations for cards
+            const cards = document.querySelectorAll('.tool-card');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                
+                setTimeout(() => {
+                    card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, 100 + index * 150);
+            });
+            
+            // Add ripple effect to buttons
+            const buttons = document.querySelectorAll('.tool-btn, .social-btn');
+            buttons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    const ripple = document.createElement('span');
+                    const rect = this.getBoundingClientRect();
+                    const size = Math.max(rect.width, rect.height);
+                    const x = e.clientX - rect.left - size / 2;
+                    const y = e.clientY - rect.top - size / 2;
+                    
+                    ripple.style.width = ripple.style.height = size + 'px';
+                    ripple.style.left = x + 'px';
+                    ripple.style.top = y + 'px';
+                    ripple.classList.add('ripple');
+                    
+                    this.appendChild(ripple);
+                    
+                    setTimeout(() => {
+                        ripple.remove();
+                    }, 600);
+                });
+            });
+            
+            // Add CSS for ripple effect
+            const style = document.createElement('style');
+            style.textContent = `
+                .ripple {
+                    position: absolute;
+                    border-radius: 50%;
+                    background: rgba(255, 255, 255, 0.5);
+                    transform: scale(0);
+                    animation: ripple-animation 0.6s linear;
+                }
+                
+                @keyframes ripple-animation {
+                    to {
+                        transform: scale(4);
+                        opacity: 0;
+                    }
+                }
+                
+                .tool-btn, .social-btn {
+                    position: relative;
+                    overflow: hidden;
+                }
+            `;
+            document.head.appendChild(style);
+            
+            // Add hover effect to cards with slight scale
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.zIndex = '10';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.zIndex = '';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
